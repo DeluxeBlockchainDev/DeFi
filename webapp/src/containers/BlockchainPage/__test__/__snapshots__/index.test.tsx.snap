@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BlockChainPage component should check for snapshot 1`] = `
+<div
+  className="main-wrapper"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Blockchain - DeFi Wallet
+    </title>
+  </HelmetWrapper>
+  <Connect(Header)>
+    <h1>
+      Blockchain
+    </h1>
+    <ButtonGroup
+      role="group"
+      tag="div"
+    >
+      <Button
+        color="link"
+        onClick={[Function]}
+        tag="button"
+      >
+        <MdLaunch />
+        <span
+          className="d-lg-inline"
+        >
+          Explorer
+        </span>
+      </Button>
+    </ButtonGroup>
+  </Connect(Header)>
+  <div
+    className="content"
+  >
+    <section
+      className="mb-0"
+    >
+      <Connect(BlockchainTable) />
+    </section>
+  </div>
+</div>
+`;

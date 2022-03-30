@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "./electron-app/build/",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "pretty": true,
+    "rootDir": ".",
+    "paths": {
+      "@defi_types/*": ["./typings/*"]
+    },
+    "resolveJsonModule": true
+  },
+  "include": ["electron-app/**/*"],
+  "exclude": ["electron-app/build/"]
+}

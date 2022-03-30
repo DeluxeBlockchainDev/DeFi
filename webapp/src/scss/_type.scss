@@ -1,0 +1,15 @@
+.caption-secondary {
+  font-size: 0.75rem;
+  font-weight: $font-weight-medium;
+  line-height: 18px;
+  letter-spacing: 0.21px;
+  color: $secondary;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-disabled {
+  cursor: not-allowed;
+}

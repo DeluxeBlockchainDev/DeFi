@@ -1,0 +1,10 @@
+@import '../../../../scss/bootstrap/common';
+
+.inputNumber {
+  width: 48px;
+  text-align: right;
+}
+
+.error-dialog {
+  color: $dfi-red !important;
+}

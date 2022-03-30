@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Console Page should check for snapshot 1`] = `
+<div
+  className="main-wrapper"
+>
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Console - DeFi Wallet
+    </title>
+  </HelmetWrapper>
+  <Connect(Header)>
+    <h1>
+      Console
+    </h1>
+  </Connect(Header)>
+  <div
+    className="content undefined"
+  >
+    <section>
+      <Connect(EchoConsole) />
+    </section>
+  </div>
+</div>
+`;

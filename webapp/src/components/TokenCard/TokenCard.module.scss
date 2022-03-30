@@ -1,0 +1,83 @@
+// App and Bootstrap variables required
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import '../../scss/variables';
+@import '../../scss/bootstrap/variables';
+
+.tokenCard {
+  margin-bottom: 24px;
+  cursor: pointer;
+  height: calc(100% - 24px);
+}
+
+.tokenBalanceCard {
+  margin-bottom: 24px;
+}
+
+.text {
+  text-align: end;
+}
+
+.cardBody {
+  display: inline-block;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.tokenName {
+  font-weight: $font-weight-medium;
+}
+
+.tokenSymbol {
+  color: $secondary;
+}
+
+.label {
+  letter-spacing: 0.15px;
+  width: 100%;
+}
+
+.value {
+  font-size: 2.125rem;
+  line-height: 2.5rem;
+}
+
+.unit {
+  letter-spacing: 0.15px;
+  color: $secondary;
+}
+
+.verifiedIcon {
+  margin-right: 8px;
+}
+
+.tokenCardIcon {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.keyValueLi {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: $table-cell-padding-y 0;
+}
+
+.cardValue {
+  display: flex;
+  color: $secondary;
+}
+
+.cardLabel {
+  color: $secondary;
+  padding-right: 1rem;
+}
+
+.cursor {
+  cursor: pointer;
+}

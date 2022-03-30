@@ -1,0 +1,46 @@
+@import '../../../../../scss/bootstrap/common';
+
+.table {
+  margin-bottom: 0;
+
+  td {
+    vertical-align: middle;
+  }
+
+  tr:first-child td,
+  tr:first-child th {
+    border-top: none;
+  }
+}
+
+.actionCell {
+  width: 24px;
+  height: 24px;
+}
+
+.qrCc svg {
+  color: $black;
+}
+
+.addressContainer {
+  max-width: 175px;
+  position: relative;
+  cursor: pointer;
+  color: $primary;
+}
+
+.copiedIndicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $dfi-scent;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+.visibilityNone {
+  visibility: hidden;
+}

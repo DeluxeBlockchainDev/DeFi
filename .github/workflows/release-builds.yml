@@ -1,0 +1,187 @@
+name: Release
+
+on:
+  release:
+    types: [created]
+
+# TODO(fuxing): All external actions that are not maintained by an org or reputable individual to be removed.
+
+jobs:
+  publish_linux_version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+        with:
+          node-version: 16
+
+      - name: install dependencies
+        run: npm cache clean --force && npm run init
+
+      - name: Build app
+        run: npm run pre:build:linux
+
+      - name: Publish app
+        run: npm run publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  create-linux-checksum:
+    needs:
+      - publish_linux_version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+        with:
+          node-version: 16
+
+      - name: Get App Version
+        uses: nyaa8/package-version@5c5cc7daa32fab488b44d448f080aa9ef7255a44
+
+      - name: Fetch Release Asset
+        uses: Legion2/download-release-action@68df3d242858e28a7e6d8b9838a3e6730cdfc422
+        with:
+          repository: 'DeFiCh/app'
+          tag: 'v${{ env.PACKAGE_VERSION}}'
+          file: 'DeFi-Wallet-${{ env.PACKAGE_VERSION}}.AppImage'
+
+      - name: Get Release Info with Tag Name
+        id: latest_release_info
+        uses: bruceadams/get-release@3a8733307b85cd96d52772b037617bd63d99522e
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate SHA256 checksum
+        run: |
+          sha256sum DeFi-Wallet-${{ env.PACKAGE_VERSION}}.AppImage > DeFi-Wallet-${{ env.PACKAGE_VERSION}}.AppImage.SHA256
+
+      - name: Upload checksum - Linux
+        uses: softprops/action-gh-release@a80139913ad69754b738283897e8a1e3362b1a03
+        with:
+          fail_on_unmatched_files: true
+          files: ./DeFi-Wallet-${{ env.PACKAGE_VERSION}}.AppImage.SHA256
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish_mac_version:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+        with:
+          node-version: 16
+
+      - name: install dependencies
+        run: npm cache clean --force && npm run init
+
+      - name: Build app
+        run: npm run pre:build:mac
+
+      - name: Publish app
+        run: npm run publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CSC_LINK: ${{ secrets.CSC_LINK}}
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD}}
+          CI: true
+          APPLE_ID: ${{ secrets.APPLE_ID}}
+          APPLE_ID_PASS: ${{ secrets.APPLE_ID_PASS}}
+
+  create-mac-checksum:
+    needs:
+      - publish_mac_version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+        with:
+          node-version: 16
+
+      - name: Get App Version
+        uses: nyaa8/package-version@5c5cc7daa32fab488b44d448f080aa9ef7255a44
+
+      - name: Fetch Release Asset
+        uses: Legion2/download-release-action@68df3d242858e28a7e6d8b9838a3e6730cdfc422
+        with:
+          repository: 'DeFiCh/app'
+          tag: 'v${{ env.PACKAGE_VERSION}}'
+          file: 'DeFi-Wallet-${{ env.PACKAGE_VERSION}}.dmg'
+
+      - name: Get Release Info with Tag Name
+        id: latest_release_info
+        uses: bruceadams/get-release@3a8733307b85cd96d52772b037617bd63d99522e
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate SHA256 checksum
+        run: |
+          sha256sum DeFi-Wallet-${{ env.PACKAGE_VERSION}}.dmg > DeFi-Wallet-${{ env.PACKAGE_VERSION}}.dmg.SHA256
+
+      - name: Upload checksum - Mac
+        uses: softprops/action-gh-release@a80139913ad69754b738283897e8a1e3362b1a03
+        with:
+          fail_on_unmatched_files: true
+          files: ./DeFi-Wallet-${{ env.PACKAGE_VERSION}}.dmg.SHA256
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish_windows_version:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+        with:
+          node-version: 16
+
+      - name: install dependencies
+        run: npm cache clean --force && npm run init
+
+      - name: Build app
+        run: npm run pre:build:win
+
+      - name: Publish app
+        run: npm run publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  create-windows-checksum:
+    needs:
+      - publish_windows_version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
+
+      - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561
+        with:
+          node-version: 16
+
+      - name: Get App Version
+        uses: nyaa8/package-version@5c5cc7daa32fab488b44d448f080aa9ef7255a44
+
+      - name: Fetch Release Asset
+        uses: Legion2/download-release-action@68df3d242858e28a7e6d8b9838a3e6730cdfc422
+        with:
+          repository: 'DeFiCh/app'
+          tag: 'v${{ env.PACKAGE_VERSION}}'
+          file: 'DeFi-Wallet-Setup-${{ env.PACKAGE_VERSION}}.exe'
+
+      - name: Get Release Info with Tag Name
+        id: latest_release_info
+        uses: bruceadams/get-release@3a8733307b85cd96d52772b037617bd63d99522e
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate SHA256 checksum
+        run: |
+          sha256sum DeFi-Wallet-Setup-${{ env.PACKAGE_VERSION}}.exe > DeFi-Wallet-Setup-${{ env.PACKAGE_VERSION}}.exe.SHA256
+
+      - name: Upload checksum - Windows
+        uses: softprops/action-gh-release@a80139913ad69754b738283897e8a1e3362b1a03
+        with:
+          fail_on_unmatched_files: true
+          files: ./DeFi-Wallet-Setup-${{ env.PACKAGE_VERSION}}.exe.SHA256
+          token: ${{ secrets.GITHUB_TOKEN }}

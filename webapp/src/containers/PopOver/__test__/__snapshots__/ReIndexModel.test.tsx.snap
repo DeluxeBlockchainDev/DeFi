@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error Modal should check for snapshot 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <Connect(ReIndexModal)>
+    <ReIndexModal
+      closeReIndexModal={[Function]}
+      isReIndexModelOpen={false}
+      isRestartLoader={[Function]}
+      reIndexMessage=""
+      startSetNodeVersion={[Function]}
+    >
+      <Modal
+        autoFocus={true}
+        backdrop={true}
+        backdropTransition={
+          Object {
+            "mountOnEnter": true,
+            "timeout": 150,
+          }
+        }
+        centered={true}
+        container="body"
+        fade={true}
+        isOpen={false}
+        keyboard={true}
+        modalTransition={
+          Object {
+            "timeout": 300,
+          }
+        }
+        onClosed={[Function]}
+        onOpened={[Function]}
+        returnFocusAfterClose={true}
+        role="dialog"
+        scrollable={false}
+        trapFocus={false}
+        unmountOnClose={true}
+        zIndex={1050}
+      />
+    </ReIndexModal>
+  </Connect(ReIndexModal)>
+</Provider>
+`;
